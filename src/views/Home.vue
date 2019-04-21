@@ -1,38 +1,48 @@
 <template>
     <div id="home">
-        <home-header>
+        <home-base>
           <template v-slot:header>
             <div class="search-bar" :class="showPage==2?'':'phone-search-bar'">
+
               <span class="icon-sort" v-if="showPage==2">
                 
               </span>
-              <span class="icon-sort-box">
+              <span class="icon-sort-box" @click="linkToCategory">
                 <i class="iconfont icon-sort-phone" v-if="showPage==1">&#xeba1;</i>  
-                <span class="txt-sort-phone" v-if="showPage==1">分类</span>              
+                <!-- <span class="txt-sort-phone" v-if="showPage==1">分类</span>               -->
               </span>
-              
-            
               <div class="search">
                 <input id="search-form-input" :class="showPage==2?'':'phone-search-item'" class="search-item"  type="text" name="q" placeholder="背带裤" data-query-word="背带裤">
               </div>
               <span class="icon-news" v-if="showPage==2">
                 
               </span>
-              <span class="icon-camara" v-if="showPage==1">
+              <span class="icon-camara" @click="linkToSearch" v-if="showPage==1">
                 
               </span>
             </div>
-              
           </template>
-        </home-header>
+          <template v-slot:body>
+            <div class="body">
+              <div class="box">
+                  111
+              </div>
+            </div>
+          </template>
+          <template v-slot:footer>
+            <div class="footer">
+              11111
+            </div>
+          </template>
+        </home-base>
     </div>
 </template>
 
 <script>
-import HomeHeader from '../components/base/Header.vue'
+import HomeBase from '../components/Base.vue'
 export default {
     components:{
-      HomeHeader
+      HomeBase
     },
     name:'home',
     data(){
@@ -40,9 +50,16 @@ export default {
         showPage : 3
       }
     },
+    methods:{
+        linkToCategory(){
+          this.$router.push({path:'/about'});
+        },
+        linkToSearch(){
+          this.$router.push({path:'/about'});
+        }
+    },
     created(){
-      if((navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i))){
-
+      if((navigator.userAgent.match(/(iPhone|iPod|Android|ios|ipad)/i))){
         //移动端
         this.showPage=1
       }else{
@@ -55,7 +72,7 @@ export default {
 <style lang="stylus" scoped>
 .search-bar
   display flex
-  position absolute
+  position relative
   top 0
   width 100%
   height 0.92rem
@@ -113,7 +130,7 @@ export default {
     width 1rem
     height 100%
     font-size 0.6rem
-    background-image: url('../assets/icon/icon-news.png')
+    background-image: url('../assets/icon/camera.png')
     background-repeat: no-repeat;
     background-position center
     background-size: 0.44rem auto;
@@ -129,12 +146,23 @@ export default {
       display block
       width 1rem
       height 100%
-      font-size 0.4rem
+      font-size 0.6rem
       color:#fff
-    span.txt-sort-phone
-      z-index:200
-
 .phone-search-bar
-  background-color #ff5777 !important;
+  background-color #f46 !important;
+
+.body
+  display block
+  height auto
+  width 100%
+  div.box
+    display block
+    height 100%
+.footer
+  display flex
+  position absolute
+  bottom 0
+  width 100%
+
 </style>
 
